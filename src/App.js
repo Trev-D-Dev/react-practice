@@ -10,6 +10,13 @@ import { useState } from 'react';
   5. Display the location for each move in the format (row, col) in the move history list // DONE
 */
 
+/** Function for Square React Component
+ * 
+ * @param {string} value: the value of the current square (all are null at start, holds X or O)
+ * @param {function} onSquareClick: callback function for when the current square is clicked
+ * @param {boolean} winner: boolean value that determines whether the square is a winning square or not
+ * @returns {button} an HTML button with a class of square (and potentially winner), onClick set to callback function, and innerText is value
+ */
 function Square({ value, onSquareClick, winner }) {
   return (
     <button 
@@ -21,6 +28,13 @@ function Square({ value, onSquareClick, winner }) {
   );
 }
 
+/** Function for calculating the winner based on an array of winning lines
+ * 
+ * @param {string[]} squares: an array of the value of each square (null, X, or O)
+ * @returns an object with a winner value and a line value. 
+ * Winner is null, X, or O depending if a winner was found. 
+ * Line is an array that is either empty or contains the winning line
+ */
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -43,6 +57,13 @@ function calculateWinner(squares) {
   return { winner: null, line: [] };
 }
 
+/** Board Function used for creating Board React Component
+ * 
+ * @param {boolean} xIsNext: Used to determine whether an X should be added to the square when clicked, or a O should be added
+ * @param {squares} squares: Array of strings (contains null, X, or O) used for filling the board with the corrent values
+ * @param {function} onPlay: Callback function used when a square is clicked
+ * @returns The game status and the Board
+ */
 function Board({ xIsNext, squares, onPlay }) {
 
   function handleClick(i) {
@@ -101,6 +122,10 @@ function Board({ xIsNext, squares, onPlay }) {
   );
 }
 
+/** Default Function for Game React Component
+ * 
+ * @returns The game, including the board as well as the move list
+ */
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
